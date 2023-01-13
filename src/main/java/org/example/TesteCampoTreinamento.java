@@ -1,33 +1,31 @@
 package org.example;
 
+import Pasta_PTO.DSL;
+import Pasta_PTO.DriveFactory;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class TesteCampoTreinamento {
 	
-	private WebDriver driver;
+
 	private DSL dsl;
 
 	@Before
 	public void inicializa(){
-		driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+
+		DriveFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@After
 	public void finaliza(){
-		driver.quit();
+		DriveFactory.KillDriver();
 	}
 	
 	@Test
@@ -104,7 +102,7 @@ public class TesteCampoTreinamento {
 	
 	@Test
 	public void deveBuscarTextosNaPagina(){
-//		Assert.assertTrue(driver.findElement(By.tagName("body"))
+//		Assert.assertTrue(getDriver().findElement(By.tagName("body"))
 //				.getText().contains("Campo de Treinamento"));
 		Assert.assertEquals("Campo de Treinamento", dsl.obterTexto(By.tagName("h3")));
 		
